@@ -50,7 +50,7 @@ class Activitate(Entity):
 
         def get_query(self):
             session = Session
-            return session.query(Activitate).filter_by(tip='cerc')
+            return session.query(Activitate).filter_by(tip='grant')
 
 
 # subclasa care contine doar granturi
@@ -65,7 +65,7 @@ class Granturi(Activitate):
         verbose_name = 'Grant'
         verbose_name_plural = 'Granturi'
         list_display = ['coordonator', 'tip', 'aprobata', 'echipa_activitate',
-                        'faze_activitate']
+                        'faze_activitate', 'resurse_activitate']
 
         form_display = ['coordonator', 'tip']
 
@@ -101,11 +101,6 @@ class FiltrareActivitatiGUI(ActionStep):
         pass
 
     def gui_run(self, gui_context):
-        print(gui_context.workspace.__dict__)
-        print(gui_context.__dict__)
-        print(gui_context)
         gui_context.workspace._tab_widget.clear()
         activi_table = Activitate.Admin2(gui_context.admin, Activitate).create_table_view(gui_context)
-        activi_table.setObjectName('activi_table')
-        print(gui_context.workspace._tab_widget.currentWidget())
         gui_context.workspace._tab_widget.addTab(activi_table, "Filtrare")
